@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
-import { faTorah, faPlug, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faPlus, faPenSquare } from '@fortawesome/free-solid-svg-icons';
 import { AppServiceService } from '../../app-service.service';
 @Component({
   selector: 'app-teacher-table',
@@ -9,9 +9,9 @@ import { AppServiceService } from '../../app-service.service';
 })
 export class TeacherTableComponent implements OnInit {
 
-  faTrash = faTorah;
-  faPlus = faPlug;
-  faPenSquare = faPenToSquare;
+  faTrash = faTrash;
+  faPlus = faPlus;
+  faPenSquare = faPenSquare;
   teacherData: any;
   selected: any;
 
@@ -22,7 +22,7 @@ export class TeacherTableComponent implements OnInit {
   }
 
   addNewTeacher() {
-    this.router.navigate(['#addTeacher'])
+    this.router.navigate(['addTeacher'])
   }
 
   editTeacher(id) {
@@ -31,7 +31,7 @@ export class TeacherTableComponent implements OnInit {
         id: id
       }
     };
-    this.router.navigate(['#editTeacher'], navigationExtras)
+    this.router.navigate(['editTeacher'], navigationExtras)
   }
 
   initializeDB(){
@@ -60,14 +60,14 @@ export class TeacherTableComponent implements OnInit {
     })
   }
 
-  search(value: string) {
+  search(value) {
     let foundItems = [];
     if (value.length <= 0) {
       this.getTeacherData();
     } else {
-      this.teacherData.forEach((teacher) => {
-        if (teacher[0].name.toLowerCase().indexOf(value.toLowerCase()) > -1) {
-          foundItems.push(teacher);
+      let b = this.teacherData.filter((teacher) => {
+        if (teacher[0].name.toLowerCase().indexOf(value) > -1) {
+          foundItems.push(teacher)
         }
       });
       this.teacherData = foundItems;
